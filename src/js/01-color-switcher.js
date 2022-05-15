@@ -4,22 +4,31 @@ const refs = {
     body: document.querySelector(`body`),  
 };
 
-console.log(refs.btnStart);
-console.log(refs.btnStop);
+//console.log(refs.btnStart);
+//console.log(refs.btnStop);
 
 refs.btnStart.addEventListener(`click`, onStart);
 refs.btnStop.addEventListener(`click`, onStop);
 
+
+
+
 let timeoutId = null;
+refs.btnStop.setAttribute("disabled", true);
 
 function onStart() {
     timeoutId = setInterval(changeBodyColor, 1000);
+    refs.btnStart.setAttribute("disabled", true);
+    refs.btnStop.removeAttribute("disabled");
     
-    refs.btnStart.disabled;
+    
 };
 
 function onStop() {
+    refs.btnStart.removeAttribute("disabled");
+    refs.btnStop.setAttribute("disabled", true);
  clearInterval(timeoutId);
+ 
  };
 
 function changeBodyColor() {
