@@ -1,6 +1,6 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import { Report } from 'notiflix/build/notiflix-report-aio';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
     input: document.querySelector(`#datetime-picker`),
@@ -32,7 +32,7 @@ flatpickr("#datetime-picker", {
         refs.btnStart.removeAttribute("disabled"); 
         return;
     }
-    Report.failure('Please choose a date in the future')
+    Notify.failure('Please choose a date in the future')
       }     
     });     
        
