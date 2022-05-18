@@ -9,39 +9,37 @@ const refs = {
 
 }
 
+
 refs.btn.addEventListener(`click`, onCreatePromises);
 
-//const amount = refs.amountEl.value;
-function onCreatePromises() {
-  
-  //for(let i = 1; i < amount; i += 1){
-    let delay = refs.delayEl.value;
-    let position = 1;
-          
-    createPromise(position, delay); 
-
-     //delay += refs.delayEl.value;
-  //}
- 
-}
-
 function createPromise(position, delay) {
-  const promise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
 
     setTimeout(() => {
       if (shouldResolve) {
-        resolve({posision: position, delay: delay});
+        resolve({position, delay});
       } 
-        reject({posision: position, delay: delay});
-      
+        reject({position, delay});      
     }, delay);  
   });
+}
+  
+function onCreatePromises() {
+  
+  for(let i = 1; i <= refs.amountEl.value; i += 1){
+    let step = refs.delayStepEl.value;
+    
+   
+    let position = i;
+    let delay = refs.delayEl.value * i;  
+     
+    createPromise(position, delay)
+  .then(({position, delay}) => Notify.success(`Fulfilled promise ${position} in ${delay}ms`))
+  .catch(({position, delay}) => Notify.failure(`Rejected promise ${position} in ${delay}ms`));
+
  
+     
  
-promise.then(({posision: position, delay: delay}) => {
-  Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
-}).catch(({posision: position, delay: delay}) => {
-  Notify.failure(`Rejected promise ${position} in ${delay}ms`);
-})
+} 
 }
