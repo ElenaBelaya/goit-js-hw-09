@@ -25,14 +25,15 @@ function createPromise(position, delay) {
   });
 }
   
-function onCreatePromises() {
+function onCreatePromises(event) {
+  event.preventDefault();
   
   for(let i = 1; i <= refs.amountEl.value; i += 1){
-    let step = refs.delayStepEl.value;
     
-   
     let position = i;
-    let delay = refs.delayEl.value * i;  
+    let delay = Number(refs.delayEl.value) + Number(refs.delayStepEl.value) * (i - 1);
+    console.log(delay);
+    
      
     createPromise(position, delay)
   .then(({position, delay}) => Notify.success(`Fulfilled promise ${position} in ${delay}ms`))
